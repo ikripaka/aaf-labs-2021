@@ -27,6 +27,9 @@ Thumbs.db
 # Log file
 *.log
 
+#iml files
+*.iml
+
 # BlueJ files
 *.ctxt
 
@@ -200,5 +203,16 @@ fabric.properties
 ### Intellij Patch ###
 # Comment Reason: https://github.com/joeblau/gitignore.io/issues/186#issuecomment-215987721
 
-# *.iml
-# modules.xml
+modules.xml
+
+/.idea
+
+# Default ignored files
+/shelf/
+/workspace.xml
+# Editor-based HTTP Client requests
+/httpRequests/
+# Datasource local storage ignored files
+/dataSources/
+/dataSources.local.xml
+
