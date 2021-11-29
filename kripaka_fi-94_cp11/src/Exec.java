@@ -17,6 +17,7 @@ public class Exec {
             parser.parse(str);
             System.out.println(Arrays.deepToString(parser.getArgs()));
         }
+
         scanner.close();
     }
 }

@@ -18,6 +18,7 @@ public class Parser {
 
     private String[][] parsedCommands;
 
+
     public boolean parse(String line) {
         try {
             StringTokenizer tokenizer = new StringTokenizer(line, ";", false);
