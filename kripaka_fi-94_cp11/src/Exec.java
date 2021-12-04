@@ -14,7 +14,7 @@ public class Exec {
             if(Objects.equals(str, "EXIT")){
                 break;
             }
-            parser.parse(str);
+            System.out.println(parser.parse(str));
             System.out.println(Arrays.deepToString(parser.getArgs()));
         }
 
