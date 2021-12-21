@@ -215,11 +215,6 @@ public class Parser {
                             }
                             parsedCommands[i][3] = match.group().toUpperCase();
 
-//                            match = INFO_INSIDE_BRACKETS.matcher(token);
-//                            if (!match.find()) {
-//                                return false;
-//                            }
-
                             String[] point = token.substring(match.end()).replaceAll("(\\(|\\)| )", "").split(",");
 
                             if(!NUMBER.matcher(point[0]).matches() || !NUMBER.matcher(point[1]).matches()){
