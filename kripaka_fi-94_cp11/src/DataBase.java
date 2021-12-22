@@ -10,26 +10,28 @@ public class DataBase {
     }
 
     public boolean create(String dbName) {
-        System.out.println("CREATED table " + dbName + " with " + " columns");
         treeMap.put(dbName, new KDTree());
+        System.out.println("CREATED table " + dbName + " with " + " columns");
         return true;
     }
 
     public boolean insert(String dbName, int[] point) {
-        System.out.println("Point2d " + point + " has been added to " + dbName);
         if(!treeMap.isEmpty() && treeMap.containsKey(dbName)){
-            treeMap.get(dbName).add(new Point2d(point[0], point[1]));
+            Point2d newPoint = new Point2d(point[0], point[1]);
+            treeMap.get(dbName).add(newPoint);
+            System.out.println("Point2d " + newPoint.toString() + " has been added to " + dbName);
             return true;
         }
+        System.out.println("There are no such database name as " + dbName);
         return false;
     }
 
     public boolean contains(String dbName, int[] point) {
-        System.out.println("contains");
         if(!treeMap.isEmpty() && treeMap.containsKey(dbName)) {
-            treeMap.get(dbName).contains(new Point2d(point[0], point[1]));
-            return true;
+            boolean queryResult = treeMap.get(dbName).contains(new Point2d(point[0], point[1]));
+            return queryResult;
         }
+        System.out.println("There are no such database name as " + dbName);
         return false;
     }
 

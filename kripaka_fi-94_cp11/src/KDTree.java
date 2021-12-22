@@ -20,7 +20,7 @@ public class KDTree {
         if (size == 0 && node == head && head == null) {
             head = point2d;
             size++;
-        } else if (isXComparable && point2d.xCoordinate < node.xCoordinate) {
+        } else if (isXComparable && point2d.getX() < node.getX()) {
             if (node.left == null) {
                 node.left = point2d;
                 size++;
@@ -31,7 +31,7 @@ public class KDTree {
                 size++;
             } else add(point2d, node.right, false);
 
-        } else if (!isXComparable && point2d.yCoordinate < node.yCoordinate) {
+        } else if (!isXComparable && point2d.getY() < node.getY()) {
             if (node.left == null) {
                 node.left = point2d;
                 size++;
@@ -59,8 +59,10 @@ public class KDTree {
     }
 
 
-    public Point2d contains(Point2d point) {
-        return new Point2d(0, 0);
+    public boolean contains(Point2d point) {
+        if (size > 0)
+            return head.contains(point, true);
+        return false;
     }
 
     public List<Point2d> search() {

@@ -1,8 +1,6 @@
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import java.util.Iterator;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 
@@ -25,6 +23,16 @@ public class KDTreeTest {
         kdTree.add(new Point2d(7,-4));
         kdTree.add(new Point2d(-5,3));
         kdTree.add(new Point2d(9,1));
+
+        System.out.println(kdTree.contains(new Point2d(5,-5)));
+        System.out.println(kdTree.contains(new Point2d(5,-5)));
+        System.out.println(kdTree.contains(new Point2d(5,-5)));
+        System.out.println(kdTree.contains(new Point2d(11,-6)));
+        System.out.println(kdTree.contains(new Point2d(9,1)));
+        System.out.println(kdTree.contains(new Point2d(-2,8)));
+        System.out.println(kdTree.contains(new Point2d(7,5)));
+        System.out.println(kdTree.contains(new Point2d(4,-10)));
+        System.out.println(kdTree.contains(new Point2d(8,2)));
 
         kdTree.printTree();
     }

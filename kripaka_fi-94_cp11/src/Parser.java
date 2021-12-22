@@ -26,7 +26,7 @@ public class Parser {
             "|((?i)nn( )+(\\(( )*(-|)([0-9])+( )*,( )*(-|)([0-9])+( )*\\)( )*)))))");
     private static final Pattern CONTAINSCOM = Pattern.compile("(?i)contains( )+(\\w|(_))+" +
             "( )*\\(( )*(-|)([0-9])+( )*,( )*(-|)([0-9])+( )*\\)( )*");
-    private static final Pattern PRINT_TREECOM = Pattern.compile("(?i)(print)_(?i)(tree)( )+(\\w|(_))+( )*");
+    private static final Pattern PRINT_TREECOM = Pattern.compile("(?i)(print)_(?i)(tree)( )+(\\w|(_))+(| )*");
 
 
     private String[][] parsedCommands;

@@ -1,21 +1,35 @@
+import edu.princeton.cs.algs4.Point2D;
+import edu.princeton.cs.algs4.RectHV;
+
 import java.util.Arrays;
-import java.util.Objects;
 import java.util.Scanner;
+import java.util.regex.Pattern;
 
 public class Exec {
+
+    final static Pattern EXIT = Pattern.compile("( )*(?i)exit( )*");
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         Parser parser = new Parser();
+        Switcher switcher = new Switcher();
         String str;
-        while(true){
+        DataBase db = new DataBase();
+
+        Point2D hi = new Point2D(5, 6);
+        RectHV hi2 = new RectHV(5, 6, 9, 9);
+
+        while (true) {
             System.out.print(">> ");
             str = scanner.nextLine();
-            if(Objects.equals(str, "EXIT")){
+            if (EXIT.matcher(str).matches()) {
                 break;
             }
-            System.out.println(parser.parse(str));
-            System.out.println(Arrays.deepToString(parser.getArgs()));
+            if (parser.parse(str)) {
+                switcher.execCommand(parser.getArgs(), db);
+            } else {
+                System.out.println("incorrect input");
+            }
         }
 
         scanner.close();
