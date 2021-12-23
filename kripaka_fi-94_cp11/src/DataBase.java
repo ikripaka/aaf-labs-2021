@@ -29,6 +29,7 @@ public class DataBase {
     public boolean contains(String dbName, int[] point) {
         if(!treeMap.isEmpty() && treeMap.containsKey(dbName)) {
             boolean queryResult = treeMap.get(dbName).contains(new Point2d(point[0], point[1]));
+            System.out.println("CONTAINS: " + queryResult);
             return queryResult;
         }
         System.out.println("There are no such database name as " + dbName);
@@ -36,47 +37,51 @@ public class DataBase {
     }
 
     public boolean search(String dbName) {
-        System.out.println("search");
         if(!treeMap.isEmpty() && treeMap.containsKey(dbName)) {
-            treeMap.get(dbName).search();
+            System.out.println("SEARCH: \n" + treeMap.get(dbName).search());
             return true;
         }
+        System.out.println("There are no such database name as " + dbName);
         return false;
     }
 
     public boolean printTree(String dbName) {
-        System.out.println("print tree");
         if(!treeMap.isEmpty() && treeMap.containsKey(dbName)) {
             treeMap.get(dbName).printTree();
             return true;
         }
+        System.out.println("There are no such database name as " + dbName);
         return false;
     }
 
     public boolean searchAboveTo(String dbName, int bottomBorder) {
-        System.out.println("search above to");
         if(!treeMap.isEmpty() && treeMap.containsKey(dbName)) {
             treeMap.get(dbName).searchAboveTo(bottomBorder);
             return true;
         }
+        System.out.println("There are no such database name as " + dbName);
         return false;
     }
 
     public boolean searchNN(String dbName, int[] point) {
-        System.out.println("search nn");
         if(!treeMap.isEmpty() && treeMap.containsKey(dbName)) {
-            treeMap.get(dbName).searchNearestNeighbor(new Point2d(point[0], point[1]));
+            System.out.println("SEARCH NN: "+treeMap.get(dbName).searchNearestNeighbor(new Point2d(point[0], point[1])));
             return true;
         }
+        System.out.println("There are no such database name as " + dbName);
         return false;
     }
 
     public boolean searchInside(String dbName, int[] point1, int[] point2) {
-        System.out.println("search inside");
         if(!treeMap.isEmpty() && treeMap.containsKey(dbName)) {
             treeMap.get(dbName).searchInside(new Point2d(point1[0], point1[1]), new Point2d(point2[0], point2[1]));
             return true;
         }
+        System.out.println("There are no such database name as " + dbName);
         return false;
+    }
+
+    public boolean isDBEmpty(){
+        return treeMap.keySet().isEmpty();
     }
 }

@@ -1,6 +1,5 @@
-import java.lang.reflect.Array;
 import java.util.Arrays;
-import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 
 public class KDTree {
@@ -12,7 +11,6 @@ public class KDTree {
     }
 
     public void add(Point2d point) {
-        Point2d current = head;
         add(point, head, true);
     }
 
@@ -65,32 +63,93 @@ public class KDTree {
         return false;
     }
 
-    public List<Point2d> search() {
-        return Arrays.asList(null, null);
+    public LinkedList<Point2d> search() {
+        LinkedList<Point2d> list = new LinkedList<>();
+        search(list, head);
+        return list;
+    }
+
+    private void search(LinkedList<Point2d> list, Point2d node) {
+        if (node.left != null) search(list, node.left);
+        if (node.right != null) search(list, node.right);
+        list.add(node);
     }
 
     public List<Point2d> searchInside(Point2d point2d, Point2d d) {
+
         return Arrays.asList(null, null);
     }
 
     public List<Point2d> searchAboveTo(int bottomBorder) {
+
         return Arrays.asList(null, null);
     }
 
-    public void removeAll() {
-
+    public LinkedList<Point2d> searchNearestNeighbor(Point2d point) {
+        Point2d minPoint = head;
+        Double minLength = Double.MAX_VALUE;
+        LinkedList<Point2d> minElementsList = new LinkedList<>();
+        // like "dfs" searching aproximate value where searching point may be in
+        // 2dtree and finding min length simultaneously
+        minLength = findApproximateNearestPoint(head, point, minLength, minElementsList);
+        //search new min points that can be less than previous value
+        searchNN(head, point, minLength, minElementsList);
+        return minElementsList;
     }
 
-    public Point2d peek() {
-        return new Point2d(0, 0);
+    private double findApproximateNearestPoint(Point2d node, Point2d lookForClosestEl, double minLength,
+                                               LinkedList<Point2d> minElementsList) {
+        Point2d currentNode = node;
+        double currentLength = 0;
+        for (int depth = 1; node != null; depth++) {
+            for (int i = 0; i < 2; i++) {
+                if (i == 0) currentNode = node.left;
+                else currentNode = node.right;
+
+                if (node.left == null || node.right == null) continue;
+                currentLength = currentNode.distanceSquaredTo(lookForClosestEl);
+                if (minLength > currentLength) {
+
+                    minLength = currentLength;
+                    minElementsList.clear();
+                    minElementsList.add(currentNode);
+                } else if (minLength == currentLength) {
+                    minElementsList.add(currentNode);
+                }
+                if (currentNode.equal(lookForClosestEl)) {
+                    minLength = 1.0;
+                    return minLength;
+                }
+            }
+
+            if ((depth & 1) == 0 && lookForClosestEl.getX() < node.getX()) {
+                node = node.left;
+            } else if ((depth & 1) == 0) {
+                node = node.right;
+            } else if ((depth & 1) == 1 && lookForClosestEl.getY() < node.getY()) {
+                node = node.left;
+            } else if ((depth & 1) == 1) {
+                node = node.right;
+            }
+        }
+        return minLength;
     }
 
-    public Point2d remove() {
-        return new Point2d(0, 0);
-    }
+    private void searchNN(Point2d currentNode, Point2d lookForClosestEl, Double minLength,
+                          LinkedList<Point2d> minElementsList) {
+        if (currentNode != null) {
 
-    public List<Point2d> searchNearestNeighbor(Point2d point) {
-        return Arrays.asList(null, null);
+            double currentLength = currentNode.distanceSquaredTo(lookForClosestEl);
+            if (currentLength < minLength) {
+                minLength = currentLength;
+                minElementsList.clear();
+                minElementsList.add(currentNode);
+            } else if (currentLength == minLength) {
+                if (!minElementsList.contains(currentNode))
+                    minElementsList.add(currentNode);
+            }
+            searchNN(currentNode.left, lookForClosestEl, minLength, minElementsList);
+            searchNN(currentNode.right, lookForClosestEl, minLength, minElementsList);
+        }
     }
-
 }

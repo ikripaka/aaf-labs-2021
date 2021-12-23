@@ -16,9 +16,6 @@ public class Exec {
         String str;
         DataBase db = new DataBase();
 
-        Point2D hi = new Point2D(5, 6);
-        RectHV hi2 = new RectHV(5, 6, 9, 9);
-
         while (true) {
             System.out.print(">> ");
             str = scanner.nextLine();

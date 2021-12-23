@@ -1,4 +1,5 @@
-import java.awt.geom.Point2D;
+import edu.princeton.cs.algs4.Point2D;
+
 import java.util.Iterator;
 
 public class Point2d {
@@ -30,21 +31,20 @@ public class Point2d {
     }
 
     public double distanceTo(Point2d that) {
-        return 0;
-
-    }         // Euclidean distance between two points
+        double dx = xCoordinate - that.xCoordinate;
+        double dy = yCoordinate - that.yCoordinate;
+        return Math.sqrt(dx*dx + dy*dy);
+    }
 
     public double distanceSquaredTo(Point2d that) {
-        return 0;
-    }  // square of Euclidean distance between two points
+        double dx = xCoordinate - that.xCoordinate;
+        double dy = yCoordinate - that.yCoordinate;
+        return dx*dx + dy*dy;
+    }
 
-    public int compareTo(Point2d that) {
-        return 0;
-    } // for use in an ordered symbol table
-
-    public boolean equals(Object that) {
-        return ((Point2d) that).xCoordinate == xCoordinate && ((Point2d) that).yCoordinate == yCoordinate;
-    } // does this point equal that object?
+    public boolean equal(Point2d that) {
+        return that.xCoordinate == xCoordinate && that.yCoordinate == yCoordinate;
+    }
 
 
     @Override
@@ -71,10 +71,6 @@ public class Point2d {
     public boolean contains(Point2d point, boolean isXComparable) {
         boolean comparison = point.getX() == xCoordinate && point.getY() == yCoordinate;
         if (comparison) return true;
-//        System.out.println(isXComparable && point.getX() < getX() && left != null left.contains(point, false));
-//        System.out.println(isXComparable && point.getX() >= getX() && left != null && left.contains(point, false));
-//        System.out.println(!isXComparable && point.getY() < getY() && right != null && right.contains(point, true));
-//        System.out.println(!isXComparable && point.getY() >= getY() && right != null && right.contains(point, true));
         if (isXComparable && point.getX() < getX() && left != null){
             return left.contains(point, false);
         }
@@ -87,7 +83,6 @@ public class Point2d {
         if (!isXComparable && point.getY() >= getY() && right != null){
             return right.contains(point, true);
         }
-        // no matching node was found
         return false;
     }
 }
